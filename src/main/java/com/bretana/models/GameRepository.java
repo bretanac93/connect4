@@ -5,16 +5,10 @@
  */
 package com.bretana.models;
 
-import java.util.List;
-
 import org.springframework.data.repository.CrudRepository;
+
 /**
  *
- * @author Cesar Bretana
+ * @author user
  */
-
-public interface PlayerRepository extends CrudRepository<Player, Long> {
-    List<Player> findByName(String name);
-    List<Player> findByCountry(String country);
-}
-
+public interface GameRepository extends CrudRepository<Game, Long> {}
