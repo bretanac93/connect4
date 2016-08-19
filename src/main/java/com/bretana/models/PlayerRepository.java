@@ -6,6 +6,7 @@
 package com.bretana.models;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.repository.CrudRepository;
 /**
@@ -14,7 +15,7 @@ import org.springframework.data.repository.CrudRepository;
  */
 
 public interface PlayerRepository extends CrudRepository<Player, Long> {
-    List<Player> findByName(String name);
+    Optional<Player> findByName(String name);
     List<Player> findByCountry(String country);
 }
 

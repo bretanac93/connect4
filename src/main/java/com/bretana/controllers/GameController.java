@@ -10,6 +10,9 @@ import com.bretana.models.GameRepository;
 import com.bretana.models.Player;
 import com.bretana.models.PlayerRepository;
 import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -29,6 +33,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class GameController {
     @Autowired
     private GameRepository repository;
+    
+    @Autowired
     private PlayerRepository player_repository;
     
     @RequestMapping(method = RequestMethod.GET)
@@ -41,10 +47,14 @@ public class GameController {
         return new ResponseEntity<>(repository.findOne(id), HttpStatus.OK);
     }
     
+    
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<?> createGame(@RequestBody String id_player1, @RequestBody String id_player2) {
-        Player p1 = player_repository.findOne(Long.parseLong(id_player1));
-        Player p2 = player_repository.findOne(Long.parseLong(id_player2));
+    public ResponseEntity<?> createGame(@RequestBody Map<String, Long> payload) throws Exception {
+        Long id_p1 = payload.get("id_p1");
+        Long id_p2 = payload.get("id_p2");
+        
+        Player p1 = player_repository.findOne(id_p1);
+        Player p2 = player_repository.findOne(id_p2);
         
         Game g = new Game();
         g.setPlayer1(p1);

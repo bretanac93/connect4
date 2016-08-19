@@ -8,6 +8,7 @@ package com.bretana.controllers;
 import com.bretana.models.Player;
 import com.bretana.models.PlayerRepository;
 import java.util.Collection;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,7 +41,7 @@ public class PlayerController {
     }
     
     @RequestMapping(params = {"name"}, method = RequestMethod.GET)
-    public ResponseEntity<Collection<Player>> getPlayerByName(@RequestParam(value="name") String name) {
+    public ResponseEntity<Optional<Player>> getPlayerByName(@RequestParam(value="name") String name) {
         return new ResponseEntity<>(repository.findByName(name), HttpStatus.OK);
     }
     
