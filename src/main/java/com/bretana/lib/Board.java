@@ -2,14 +2,15 @@ package com.bretana.lib;
 
 import java.util.HashMap;
 
-public class Logic {
+public class Board {
 
-    private int[][] board;
-    private int width, height, last_played;
+    private long[][] board;
+    private int width, height;
+    private long last_played;
     private HashMap<Integer, Integer> col_count;
 
-    public Logic(int width, int height) {
-        this.board = new int[width][height];
+    public Board(int width, int height) {
+        this.board = new long[width][height];
         this.width = width;
         this.height = height;
         this.col_count = new HashMap<>();
@@ -19,35 +20,31 @@ public class Logic {
             col_count.put(i, 0);
     }
 
-    public int getLastPlayer() {
-    		return this.last_played;
+    public long getLastPlayer() {
+        return this.last_played;
     }
 
     // Returns true if the game was won by someone.
     // Returns false otherwise.
     // To determine who won the game, check the variable "last_played"
-    public boolean insertPiece(int player, int pos_ins) throws Exception {
+    public boolean insertPiece(long player, int pos_ins) throws Exception {
     		
-    		if (player == last_played) {
-    			throw new Exception("This player already made his turn");
-    		}
+        if (player == last_played) {
+                throw new Exception("This player already made his turn");
+        }
 
-    		int curr_count = col_count.get(pos_ins);
+        int curr_count = col_count.get(pos_ins);
         int pos_add = height - curr_count - 1;
 		
-		this.board[pos_add][pos_ins] = player;
-		last_played = player;
+        this.board[pos_add][pos_ins] = player;
+        last_played = player;
 
-		col_count.put(pos_ins, curr_count + 1);
-		
-		if (this.checkWin(player)) {
-			return true;
-		}
+        col_count.put(pos_ins, curr_count + 1);
 
-		return false;
+        return this.checkWin(player);
     }
 
-    private boolean checkWin(int player) {
+    private boolean checkWin(long player) {
     		// horizontalCheck 
 	    for (int j = 0; j < this.height - 3 ; j++ ) {
 	        for (int i = 0; i < this.width; i++) {

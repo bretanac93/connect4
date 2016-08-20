@@ -12,7 +12,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 
@@ -27,6 +26,7 @@ public class Player implements Serializable {
     
     private String name;
     private String country;
+    private List<Turn> moves;
     
     public Player() {}
     public Player(String name) {
@@ -62,5 +62,14 @@ public class Player implements Serializable {
     @Override
     public String toString() {
         return this.name;
+    }
+
+    @OneToMany(mappedBy = "player")
+    public List<Turn> getMoves() {
+        return moves;
+    }
+
+    public void setMoves(List<Turn> moves) {
+        this.moves = moves;
     }
 }
