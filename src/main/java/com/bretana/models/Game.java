@@ -5,7 +5,6 @@
  */
 package com.bretana.models;
 
-import com.bretana.lib.Board;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Entity;
@@ -15,7 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-
+import com.google.gson.Gson;
 /**
  *
  * @author user
@@ -29,8 +28,8 @@ public class Game implements Serializable {
     private Integer board_width;
     private Integer board_height;
     private List<Turn> turns;
-    private Board board;
-    
+    private String board;
+
     
     public Game() {}
     public Game(Player player1, Player player2, Integer board_width, Integer board_height) {
@@ -38,7 +37,7 @@ public class Game implements Serializable {
         this.player2 = player2;
         this.board_height = board_height;
         this.board_width = board_width;
-        this.board = new Board(board_width, board_height);
+        this.board = "";
     }
     
     @Id
@@ -94,14 +93,11 @@ public class Game implements Serializable {
         this.turns = turns;
     }
     
-    public void addTurn(Turn turn) {
-        long p_id = turn.getPlayer().getId();
-        int pos_ins = turn.getPos_x();
-        
-        try {
-            boolean was = this.board.insertPiece(p_id, pos_ins);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+    public String getBoard() {
+        return board;
+    }
+
+    public void setBoard(String board) {
+        this.board = board;
     }
 }

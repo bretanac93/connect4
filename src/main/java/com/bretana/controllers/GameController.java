@@ -5,14 +5,13 @@
  */
 package com.bretana.controllers;
 
+import com.bretana.lib.Board;
 import com.bretana.models.Game;
 import com.bretana.models.GameRepository;
 import com.bretana.models.Player;
 import com.bretana.models.PlayerRepository;
 import java.util.Collection;
-import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,9 +19,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
+import com.google.gson.Gson;
 
 /**
  *
@@ -31,11 +29,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/games")
 public class GameController {
+    
     @Autowired
     private GameRepository repository;
     
     @Autowired
     private PlayerRepository player_repository;
+     
+    private Board board;
+    private final Gson gson = new Gson();
     
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<Collection<Game>> getAllGames() {
@@ -47,11 +49,22 @@ public class GameController {
         return new ResponseEntity<>(repository.findOne(id), HttpStatus.OK);
     }
     
+    private String encodeMatrix(long[][] m) {
+        String data = gson.toJson(m);
+        return data;
+    }
+    
+    private long[][] decodeMatrix(String data) {
+        long[][] m = gson.fromJson(data, long[][].class);
+        return m;
+    }
     
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<?> createGame(@RequestBody Map<String, Long> payload) throws Exception {
-        Long id_p1 = payload.get("id_p1");
-        Long id_p2 = payload.get("id_p2");
+    public ResponseEntity<?> createGame(@RequestBody Map<String, Integer> payload) throws Exception {
+        Long id_p1 = (long) payload.get("id_p1");
+        Long id_p2 = (long) payload.get("id_p2");
+        int width = payload.get("width");
+        int height = payload.get("height");
         
         Player p1 = player_repository.findOne(id_p1);
         Player p2 = player_repository.findOne(id_p2);
@@ -59,6 +72,9 @@ public class GameController {
         Game g = new Game();
         g.setPlayer1(p1);
         g.setPlayer2(p2);
+        board = new Board(width, height);
+        
+        g.setBoard(this.encodeMatrix(board.getBoard()));
         
         return new ResponseEntity<>(repository.save(g), HttpStatus.CREATED);
     }

@@ -5,6 +5,10 @@ import java.util.HashMap;
 public class Board {
 
     private long[][] board;
+
+    public long[][] getBoard() {
+        return board;
+    }
     private int width, height;
     private long last_played;
     private HashMap<Integer, Integer> col_count;
@@ -76,5 +80,18 @@ public class Board {
 	        }
 	    }
 	    return false;
+    }
+    
+    public void fillBoard(long [][] matrix) {
+        this.board = matrix;
+        int index = 0;
+        for (long[] arr : this.board) {
+            int count = 0;
+            for (int i = 0; i < arr.length; i++) {
+                if (arr[i] != 0)
+                    count++;
+            }
+            col_count.put(index, count);
+        }
     }
 }
