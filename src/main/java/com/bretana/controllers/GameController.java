@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.google.gson.Gson;
+import java.util.Optional;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
@@ -72,10 +74,17 @@ public class GameController {
         Game g = new Game();
         g.setPlayer1(p1);
         g.setPlayer2(p2);
+        g.setBoard_width(width);
+        g.setBoard_height(height);
         board = new Board(width, height);
         
         g.setBoard(this.encodeMatrix(board.getBoard()));
         
         return new ResponseEntity<>(repository.save(g), HttpStatus.CREATED);
+    }
+    
+    @RequestMapping(params = {"player1", "player2"}, method = RequestMethod.GET)
+    public ResponseEntity<Game> getGameByVs(@RequestParam("player1") String player1, @RequestParam("player2") String player2) {
+        return new ResponseEntity<>(repository.findGameByVs(player1, player2).get(), HttpStatus.OK);
     }
 }
