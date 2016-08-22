@@ -43,24 +43,27 @@ public class Turn implements Serializable {
         return player;
     }
 
-    public void setPlayer(Player player) {
+    public Turn setPlayer(Player player) {
         this.player = player;
+        return this;
     }
 
     public Integer getPos_x() {
         return pos_x;
     }
 
-    public void setPos_x(Integer pos_x) {
+    public Turn setPos_x(Integer pos_x) {
         this.pos_x = pos_x;
+        return this;
     }
 
     public Integer getPos_y() {
         return pos_y;
     }
 
-    public void setPos_y(Integer pos_y) {
+    public Turn setPos_y(Integer pos_y) {
         this.pos_y = pos_y;
+        return this;
     }
     
     @ManyToOne
@@ -68,8 +71,9 @@ public class Turn implements Serializable {
         return game;
     }
 
-    public void setGame(Game game) {
+    public Turn setGame(Game game) {
         this.game = game;
+        return this;
     }
     
 }

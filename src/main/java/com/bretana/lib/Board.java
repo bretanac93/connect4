@@ -27,11 +27,15 @@ public class Board {
     public long getLastPlayer() {
         return this.last_played;
     }
+    
+    public int getTokenCountByPos(int position) {
+        return this.col_count.get(position);
+    }
 
     // Returns true if the game was won by someone.
     // Returns false otherwise.
     // To determine who won the game, check the variable "last_played"
-    public boolean insertPiece(long player, int pos_ins) throws Exception {
+    public StatusMessage insertPiece(long player, int pos_ins) throws Exception {
     		
         if (player == last_played) {
                 throw new Exception("This player already made his turn");
@@ -48,12 +52,12 @@ public class Board {
         return this.checkWin(player);
     }
 
-    private boolean checkWin(long player) {
+    private StatusMessage checkWin(long player) {
     		// horizontalCheck 
 	    for (int j = 0; j < this.height - 3 ; j++ ) {
 	        for (int i = 0; i < this.width; i++) {
 	            if (this.board[i][j] == player && this.board[i][j+1] == player && this.board[i][j+2] == player && this.board[i][j+3] == player){
-	                return true;
+	                return new StatusMessage("HORIZONTAL", "");
 	            }           
 	        }
 	    }
@@ -61,7 +65,7 @@ public class Board {
 	    for (int i = 0; i < this.width - 3 ; i++) {
 	        for (int j = 0; j < this.height; j++) {
 	            if (this.board[i][j] == player && this.board[i+1][j] == player && this.board[i+2][j] == player && this.board[i+3][j] == player){
-	                return true;
+	                return new StatusMessage("VERTICAL", "");
 	            }           
 	        }
 	    }
@@ -69,17 +73,17 @@ public class Board {
 	    for (int i = 3; i < this.width; i++) {
 	        for (int j = 0; j < this.height - 3; j++) {
 	            if (this.board[i][j] == player && this.board[i-1][j+1] == player && this.board[i-2][j+2] == player && this.board[i-3][j+3] == player)
-	                return true;
+	                return new StatusMessage("DIAGONAL UP", "");
 	        }
 	    }
 	    // descendingDiagonalCheck
 	    for (int i = 3; i < this.width; i++) {
 	        for (int j = 3; j < this.height; j++) {
 	            if (this.board[i][j] == player && this.board[i-1][j-1] == player && this.board[i-2][j-2] == player && this.board[i-3][j-3] == player)
-	                return true;
+	                return new StatusMessage("DIAGONAL DOWN", "");
 	        }
 	    }
-	    return false;
+	    return null;
     }
     
     public void fillBoard(long [][] matrix) {

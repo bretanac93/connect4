@@ -5,6 +5,7 @@
  */
 package com.bretana.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Entity;
@@ -14,7 +15,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import com.google.gson.Gson;
 /**
  *
  * @author user
@@ -51,6 +51,7 @@ public class Game implements Serializable {
     }
     
     @ManyToOne
+    @JsonIgnore
     public Player getPlayer1() {
         return this.player1;
     }
@@ -60,6 +61,7 @@ public class Game implements Serializable {
     }
     
     @ManyToOne
+    @JsonIgnore
     public Player getPlayer2() {
         return this.player2;
     }
@@ -85,6 +87,7 @@ public class Game implements Serializable {
     }
 
     @OneToMany(mappedBy = "game")
+    @JsonIgnore
     public List<Turn> getTurns() {
         return turns;
     }

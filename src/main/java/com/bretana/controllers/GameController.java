@@ -6,10 +6,13 @@
 package com.bretana.controllers;
 
 import com.bretana.lib.Board;
+import com.bretana.lib.StatusMessage;
 import com.bretana.models.Game;
 import com.bretana.models.GameRepository;
 import com.bretana.models.Player;
 import com.bretana.models.PlayerRepository;
+import com.bretana.models.Turn;
+import com.bretana.models.TurnRepository;
 import java.util.Collection;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.google.gson.Gson;
-import java.util.Optional;
+
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
@@ -37,6 +40,9 @@ public class GameController {
     
     @Autowired
     private PlayerRepository player_repository;
+    
+    @Autowired
+    private TurnRepository turn_repository;
      
     private Board board;
     private final Gson gson = new Gson();
@@ -86,5 +92,44 @@ public class GameController {
     @RequestMapping(params = {"player1", "player2"}, method = RequestMethod.GET)
     public ResponseEntity<Game> getGameByVs(@RequestParam("player1") String player1, @RequestParam("player2") String player2) {
         return new ResponseEntity<>(repository.findGameByVs(player1, player2).get(), HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = "/play", method = RequestMethod.POST)
+    public ResponseEntity<?> makeTurn(@RequestBody Map<String, Integer> payload) {
+        // Player 1, Player 2, token_position
+        Player who_play = player_repository.findOne((long) payload.get("who_play"));
+        String other_player = player_repository.findOne((long) payload.get("player1")).getName();
+        Turn t = new Turn();
+        
+        Game g = repository.findGameByVs(who_play.getName(), other_player).get();
+        int token_position = payload.get("token_position");
+        long[][] board_matrix = this.decodeMatrix(g.getBoard());
+        
+        this.board.fillBoard(board_matrix);
+        
+        try {
+            StatusMessage result = this.board.insertPiece(who_play.getId(), token_position);
+            
+            if (result != null) {
+                result.setWinner(who_play.getName());
+                return new ResponseEntity<>(result, HttpStatus.OK);
+            }
+            else {
+                g.setBoard(this.encodeMatrix(this.board.getBoard()));
+            
+                t.setGame(g)
+                 .setPlayer(who_play)
+                 .setPos_x(token_position)
+                 .setPos_y(this.board.getTokenCountByPos(token_position));
+                
+                repository.save(g);
+                turn_repository.save(t);
+                
+                return new ResponseEntity<>("Nice", HttpStatus.CREATED);
+            }
+            
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }
