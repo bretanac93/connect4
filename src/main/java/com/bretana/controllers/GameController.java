@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.google.gson.Gson;
+import java.util.HashMap;
 
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -89,19 +90,27 @@ public class GameController {
         return new ResponseEntity<>(repository.save(g), HttpStatus.CREATED);
     }
     
-    @RequestMapping(params = {"player1", "player2"}, method = RequestMethod.GET)
-    public ResponseEntity<Game> getGameByVs(@RequestParam("player1") String player1, @RequestParam("player2") String player2) {
-        return new ResponseEntity<>(repository.findGameByVs(player1, player2).get(), HttpStatus.OK);
-    }
-    
     @RequestMapping(value = "/play", method = RequestMethod.POST)
     public ResponseEntity<?> makeTurn(@RequestBody Map<String, Integer> payload) {
         // Player 1, Player 2, token_position
         Player who_play = player_repository.findOne((long) payload.get("who_play"));
         String other_player = player_repository.findOne((long) payload.get("player1")).getName();
-        Turn t = new Turn();
         
         Game g = repository.findGameByVs(who_play.getName(), other_player).get();
+        
+        if(g.getBoard_height()*g.getBoard_width() == g.getTurns().size()) {
+            g.hasFinished();
+            return new ResponseEntity<>(new StatusMessage("DRAW", ""), HttpStatus.NOT_MODIFIED);
+        }
+        
+        if (g.isFinished()) {
+            HashMap<String, String> msg = new HashMap<>();
+            msg.put("message", "This game is already finished, you cannot keep playing on.");
+            return new ResponseEntity<>(msg, HttpStatus.NOT_MODIFIED);
+        }
+        
+        Turn t = new Turn();
+        
         int token_position = payload.get("token_position");
         long[][] board_matrix = this.decodeMatrix(g.getBoard());
         

@@ -27,10 +27,10 @@ public class Game implements Serializable {
     private Player player2;
     private Integer board_width;
     private Integer board_height;
+    private boolean is_finished;
     private List<Turn> turns;
     private String board;
 
-    
     public Game() {}
     public Game(Player player1, Player player2, Integer board_width, Integer board_height) {
         this.player1 = player1;
@@ -38,6 +38,7 @@ public class Game implements Serializable {
         this.board_height = board_height;
         this.board_width = board_width;
         this.board = "";
+        this.is_finished = false;
     }
     
     @Id
@@ -102,5 +103,14 @@ public class Game implements Serializable {
 
     public void setBoard(String board) {
         this.board = board;
+    }
+    
+    public boolean isFinished() {
+        return is_finished;
+    }
+
+    public void hasFinished() {
+        this.is_finished = true;
+        this.turns.clear();
     }
 }
