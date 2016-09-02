@@ -70,8 +70,8 @@ public class GameController {
     
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> createGame(@RequestBody Map<String, Integer> payload) throws Exception {
-        Long id_p1 = (long) payload.get("id_p1");
-        Long id_p2 = (long) payload.get("id_p2");
+        Long id_p1 = (long) payload.get("player1");
+        Long id_p2 = (long) payload.get("player2");
         int width = payload.get("width");
         int height = payload.get("height");
         
@@ -94,9 +94,9 @@ public class GameController {
     public ResponseEntity<?> makeTurn(@RequestBody Map<String, Integer> payload) {
         // Player 1, Player 2, token_position
         Player who_play = player_repository.findOne((long) payload.get("who_play"));
-        String other_player = player_repository.findOne((long) payload.get("player1")).getName();
+        Game g = repository.findOne((long) payload.get("game_id"));
         
-        Game g = repository.findGameByVs(who_play.getName(), other_player).get();
+//        Game g = repository.findGameByVs(who_play.getName(), other_player).get();
         
         if(g.getBoard_height()*g.getBoard_width() == g.getTurns().size()) {
             g.hasFinished();
@@ -131,10 +131,10 @@ public class GameController {
                  .setPos_x(token_position)
                  .setPos_y(this.board.getTokenCountByPos(token_position));
                 
-                repository.save(g);
+                Game g_saved = repository.save(g);
                 turn_repository.save(t);
                 
-                return new ResponseEntity<>("Nice", HttpStatus.CREATED);
+                return new ResponseEntity<>(g_saved, HttpStatus.CREATED);
             }
             
         } catch (Exception e) {
