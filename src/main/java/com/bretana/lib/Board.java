@@ -2,6 +2,10 @@ package com.bretana.lib;
 
 import java.util.HashMap;
 
+/**
+ * Board is the class that represents all the logic in the task.
+ * @author Cesar Bretana
+ */
 public class Board {
 
     private long[][] board;
@@ -13,6 +17,11 @@ public class Board {
     private long last_played;
     private HashMap<Integer, Integer> col_count;
 
+    /**
+     * Constructor
+     * @param width Defines the width of the board
+     * @param height Defines the height of the board
+     */
     public Board(int width, int height) {
         this.board = new long[width][height];
         this.width = width;
@@ -32,10 +41,16 @@ public class Board {
         return this.col_count.get(position);
     }
 
-    // Returns true if the game was won by someone.
-    // Returns false otherwise.
     // To determine who won the game, check the variable "last_played"
-    public StatusMessage insertPiece(long player, int pos_ins) throws Exception {
+
+    /**
+     *
+     * @param player Indicates the player id, is received from the Spring app.
+     * @param pos_ins Indicates the position to insert the token.
+     * @return the message containing information about who won and the direction of the game, if null then it can keep receiving new playings.
+     * @throws Exception indicating a cheat alert. 
+     */
+        public StatusMessage insertPiece(long player, int pos_ins) throws Exception {
     		
         if (player == last_played) {
                 throw new Exception("This player already made his turn");
@@ -86,6 +101,10 @@ public class Board {
 	    return null;
     }
     
+    /**
+     * This method is used for fill the board with new information.
+     * @param matrix for fill the board
+     */
     public void fillBoard(long [][] matrix) {
         this.board = matrix;
         int index = 0;

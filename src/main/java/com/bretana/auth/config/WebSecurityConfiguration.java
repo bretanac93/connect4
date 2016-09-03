@@ -25,8 +25,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
- *
- * @author user
+ * Configuration class to define all the protected resources and the free-access ones.
+ * @author Cesar Bretana Gonzalez
  */
 @Configuration
 @EnableWebSecurity

@@ -7,7 +7,6 @@ package com.bretana.auth.security;
 
 import com.bretana.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,8 +22,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 /**
- *
- * @author user
+ * Defines a filter for process the token captured in the headers, 
+ * and authenticate the user in the server for each request.
+ * @author Cesar Bretana Gonzalez
  */
 public class AuthenticationTokenFilter extends UsernamePasswordAuthenticationFilter {
 
@@ -61,4 +61,3 @@ public class AuthenticationTokenFilter extends UsernamePasswordAuthenticationFil
     }
 
 }
-// TokenUtils.java

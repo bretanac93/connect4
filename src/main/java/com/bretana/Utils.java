@@ -8,8 +8,8 @@ package com.bretana;
 import java.util.HashMap;
 
 /**
- *
- * @author user
+ * Holds the useful methods of the project.
+ * @author Cesar Bretana Gonzalez
  */
 public class Utils {
     public static HashMap<String, Object> buildMessage(String title, Object value) {

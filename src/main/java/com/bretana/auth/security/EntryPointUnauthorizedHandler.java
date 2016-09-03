@@ -14,8 +14,8 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
 
 /**
- *
- * @author user
+ * Component for handle the response of an action
+ * @author Cesar Bretana Gonzalez
  */
 @Component
 public class EntryPointUnauthorizedHandler implements AuthenticationEntryPoint {

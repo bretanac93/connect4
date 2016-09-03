@@ -38,8 +38,8 @@ import com.bretana.auth.security.TokenUtils;
 import org.springframework.http.HttpStatus;
 
 /**
- *
- * @author user
+ * Controller containing register & login actions.
+ * @author Cesar Bretana Gonzalez
  */
 @RestController
 @RequestMapping("auth")

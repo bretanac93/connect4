@@ -11,13 +11,21 @@ import javax.servlet.*;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
- * @author user
+ * A filter to allow the cross origin request sharing.
+ * @author Cesar Bretana Gonzalez
  */
 public class CorsFilter implements Filter {
 
     private final String tokenHeader = Constants.SECRET_KEY;
 
+    /**
+     * Where the magic happens
+     * @param req
+     * @param res
+     * @param chain
+     * @throws IOException
+     * @throws ServletException
+     */
     @Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
         HttpServletResponse response = (HttpServletResponse) res;

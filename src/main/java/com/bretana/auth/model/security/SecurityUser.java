@@ -12,8 +12,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 /**
- *
- * @author user
+ * Just like the {@link #User(com.bretana.auth.domain.entity.User)} class.
+ * Internally used to keep track of users.
+ * @author Cesar Bretana Gonzalez
  */
 public class SecurityUser implements UserDetails {
 
@@ -33,13 +34,14 @@ public class SecurityUser implements UserDetails {
         super();
     }
 
-    public SecurityUser(Long id, String username, String password, String email, Date lastPasswordReset, Collection<? extends GrantedAuthority> authorities) {
+    public SecurityUser(Long id, String username, String password, String email, String country, Date lastPasswordReset, Collection<? extends GrantedAuthority> authorities) {
         this.setId(id);
         this.setUsername(username);
         this.setPassword(password);
         this.setEmail(email);
         this.setLastPasswordReset(lastPasswordReset);
         this.setAuthorities(authorities);
+        this.setCountry(country);
     }
 
     public Long getId() {

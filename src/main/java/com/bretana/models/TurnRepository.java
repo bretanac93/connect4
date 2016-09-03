@@ -10,7 +10,7 @@ import org.springframework.data.repository.CrudRepository;
  */
 
 /**
- *
- * @author user
+ * Turn operations
+ * @author Cesar Bretana Gonzalez
  */
 public interface TurnRepository extends CrudRepository<Turn, Long> {}

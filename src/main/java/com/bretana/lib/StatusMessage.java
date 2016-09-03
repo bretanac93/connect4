@@ -6,8 +6,8 @@
 package com.bretana.lib;
 
 /**
- *
- * @author user
+ * Defines a struct for indicate status of the game
+ * @author Cesar Bretana Gonzalez
  */
 public class StatusMessage {
     private String direction;

@@ -10,17 +10,23 @@ import com.bretana.auth.model.security.SecurityUser;
 import org.springframework.security.core.authority.AuthorityUtils;
 
 /**
- *
- * @author user
+ * Factory to provide an abstraction layer for user creation.
+ * @author Cesar Bretana Gonzalez
  */
 public class UserFactory {
 
+    /**
+     * Method for create a new user.
+     * @param user User to create
+     * @return the new user already created.
+     */
     public static SecurityUser create(User user) {
         return new SecurityUser(
                 user.getId(),
                 user.getUsername(),
                 user.getPassword(),
                 user.getEmail(),
+                user.getCountry(),
                 user.getLastPasswordReset(),
                 AuthorityUtils.commaSeparatedStringToAuthorityList(user.getAuthorities())
         );

@@ -9,11 +9,8 @@ import com.bretana.auth.domain.entity.User;
 import java.util.List;
 
 /**
- *
- * @author user
- */
-/**
- * Created by nasir on 6/2/16.
+ * Define the service to retrieve information from the users table.
+ * @author Cesar Bretana Gonzalez
  */
 public interface UserService {
 

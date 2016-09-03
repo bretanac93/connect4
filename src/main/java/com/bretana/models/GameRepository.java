@@ -11,8 +11,8 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 /**
- *
- * @author user
+ * Actions for the Game entity
+ * @author Cesar Bretana Gonzalez
  */
 public interface GameRepository extends CrudRepository<Game, Long> {
     @Query("select g from Game g where g.player1.username = :player or g.player2.username = :player")

@@ -17,8 +17,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 /**
- *
- * @author user
+ * Game related information
+ * @author Cesar Bretana Gonzalez
  */
 @Entity
 public class Game implements Serializable {

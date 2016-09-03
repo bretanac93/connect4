@@ -28,13 +28,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.google.gson.Gson;
-import java.util.HashMap;
-import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- *
- * @author user
+ * Contains all the actions for the game
+ * @author Cesar Bretana Gonzalez
  */
 @RestController
 @RequestMapping("/games")

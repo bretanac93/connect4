@@ -14,8 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 /**
- *
- * @author user
+ * Contains information of a single move made by a user
+ * @author Cesar Bretana Gonzalez
  */
 @Entity
 public class Turn implements Serializable {
