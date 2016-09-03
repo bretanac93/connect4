@@ -43,6 +43,10 @@ public class TokenUtils {
         }
         return username;
     }
+    
+    public String getTokenFromHeader(String header) {
+        return header.split(" ")[1];
+    }
 
     public Date getCreatedDateFromToken(String token) {
         Date created;

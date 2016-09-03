@@ -21,6 +21,7 @@ public class SecurityUser implements UserDetails {
     private String username;
     private String password;
     private String email;
+    private String country;
     private Date lastPasswordReset;
     private Collection<? extends GrantedAuthority> authorities;
     private Boolean accountNonExpired = true;
@@ -141,6 +142,14 @@ public class SecurityUser implements UserDetails {
 
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
+    }
+    
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     @Override

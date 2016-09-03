@@ -100,7 +100,7 @@ public class AuthenticationController {
         Date currentTime = new Date(12 - 12 - 2 - 12);
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String hashedPassword = passwordEncoder.encode(user.getPassword());
-        User newUser = new User(user.getUsername(), hashedPassword, user.getEmail(), currentTime, "USER");
+        User newUser = new User(user.getUsername(), hashedPassword, user.getEmail(), user.getCountry(), currentTime, "USER");
 
         userRepository.save(newUser);
         return null;

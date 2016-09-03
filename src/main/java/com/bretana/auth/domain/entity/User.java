@@ -5,13 +5,16 @@
  */
 package com.bretana.auth.domain.entity;
 
+import com.bretana.models.Turn;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -29,12 +32,14 @@ public class User implements Serializable {
     private String email;
     private Date lastPasswordReset;
     private String authorities;
-
+    private String country;
+    private List<Turn> moves;
+    
     public User() {
         super();
     }
 
-    public User(String username, String password, String email, Date lastPasswordReset, String authorities) {
+    public User(String username, String password, String email, String country, Date lastPasswordReset, String authorities) {
         this.setUsername(username);
         this.setPassword(password);
         this.setEmail(email);
@@ -97,5 +102,21 @@ public class User implements Serializable {
     public void setAuthorities(String authorities) {
         this.authorities = authorities;
     }
+    
+    public String getCountry() {
+        return this.country;
+    }
+    
+    public void setCountry(String country) {
+        this.country = country;
+    }
+    
+    @OneToMany(mappedBy = "user")
+    public List<Turn> getMoves() {
+        return moves;
+    }
 
+    public void setMoves(List<Turn> moves) {
+        this.moves = moves;
+    }
 }

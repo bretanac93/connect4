@@ -5,6 +5,7 @@
  */
 package com.bretana.models;
 
+import com.bretana.auth.domain.entity.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.List;
@@ -23,8 +24,8 @@ import javax.persistence.OneToMany;
 public class Game implements Serializable {
     
     private Long id;
-    private Player player1;
-    private Player player2;
+    private User player1;
+    private User player2;
     private Integer board_width;
     private Integer board_height;
     private boolean finished;
@@ -34,7 +35,7 @@ public class Game implements Serializable {
     private String board;
 
     public Game() {}
-    public Game(Player player1, Player player2, Integer board_width, Integer board_height) {
+    public Game(User player1, User player2, Integer board_width, Integer board_height) {
         this.player1 = player1;
         this.player2 = player2;
         this.board_height = board_height;
@@ -54,22 +55,20 @@ public class Game implements Serializable {
     }
     
     @ManyToOne
-    @JsonIgnore
-    public Player getPlayer1() {
+    public User getPlayer1() {
         return this.player1;
     }
     
-    public void setPlayer1(Player player1) {
+    public void setPlayer1(User player1) {
         this.player1 = player1;
     }
     
     @ManyToOne
-    @JsonIgnore
-    public Player getPlayer2() {
+    public User getPlayer2() {
         return this.player2;
     }
     
-    public void setPlayer2(Player player2) {
+    public void setPlayer2(User player2) {
         this.player2 = player2;
     }
     

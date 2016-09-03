@@ -5,6 +5,7 @@
  */
 package com.bretana.models;
 
+import com.bretana.auth.domain.entity.User;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,7 +21,7 @@ import javax.persistence.ManyToOne;
 public class Turn implements Serializable {
     private Long id;
     
-    private Player player;
+    private User user;
     
     private Integer pos_x;
     private Integer pos_y;
@@ -39,12 +40,12 @@ public class Turn implements Serializable {
     }
 
     @ManyToOne
-    public Player getPlayer() {
-        return player;
+    public User getUser() {
+        return user;
     }
 
-    public Turn setPlayer(Player player) {
-        this.player = player;
+    public Turn setUser(User user) {
+        this.user = user;
         return this;
     }
 
