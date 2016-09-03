@@ -13,4 +13,5 @@ public class Constants {
 
     public static final String SECRET_KEY = "ThisTokenIsNoSecret";
     public static final String AUTH_HEADER = "Authorization";
+    public static final Long EXP_TIME = (long)604800;
 }

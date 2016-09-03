@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.bretana.auth;
+package com.bretana.auth.config;
 
 import com.bretana.Constants;
 import java.io.IOException;

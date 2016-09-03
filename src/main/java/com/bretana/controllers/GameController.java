@@ -25,8 +25,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.google.gson.Gson;
 import java.util.HashMap;
-
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 /**
  *
@@ -95,8 +94,6 @@ public class GameController {
         // Player 1, Player 2, token_position
         Player who_play = player_repository.findOne((long) payload.get("who_play"));
         Game g = repository.findOne((long) payload.get("game_id"));
-        
-//        Game g = repository.findGameByVs(who_play.getName(), other_player).get();
         
         if(g.getBoard_height()*g.getBoard_width() == g.getTurns().size()) {
             g.hasFinished();
