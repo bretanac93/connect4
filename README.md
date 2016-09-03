@@ -144,3 +144,9 @@ URI | HTTP Method | Function
 /users/{username} | *GET* | Retrieve a user given his username
 
 
+TODO
+--
+
+- [ ] Change password of a user.
+- [ ] Add real time support using websockets.
+
