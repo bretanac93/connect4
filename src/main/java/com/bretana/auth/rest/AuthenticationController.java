@@ -28,12 +28,14 @@ import java.util.Date;
 import org.slf4j.LoggerFactory;
 
 import com.bretana.Constants;
+import com.bretana.Utils;
 import com.bretana.auth.domain.entity.User;
 import com.bretana.auth.model.json.request.AuthenticationRequest;
 import com.bretana.auth.model.json.response.AuthenticationResponse;
 import com.bretana.auth.model.security.SecurityUser;
 import com.bretana.auth.repository.UserRepository;
 import com.bretana.auth.security.TokenUtils;
+import org.springframework.http.HttpStatus;
 
 /**
  *
@@ -90,7 +92,7 @@ public class AuthenticationController {
             String refreshedToken = this.tokenUtils.refreshToken(token);
             return ResponseEntity.ok(new AuthenticationResponse(refreshedToken));
         } else {
-            return ResponseEntity.badRequest().body(null);
+            return ResponseEntity.badRequest().body(Utils.buildMessage("message", "There was an unexpected problem, try it again later."));
         }
     }
 
@@ -103,7 +105,7 @@ public class AuthenticationController {
         User newUser = new User(user.getUsername(), hashedPassword, user.getEmail(), user.getCountry(), currentTime, "USER");
 
         userRepository.save(newUser);
-        return null;
+        return new ResponseEntity<>(Utils.buildMessage("message", "Registered successfully"), HttpStatus.CREATED);
     }
 
 }

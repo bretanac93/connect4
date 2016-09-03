@@ -6,6 +6,7 @@
 package com.bretana.controllers;
 
 import com.bretana.Constants;
+import com.bretana.Utils;
 import com.bretana.auth.domain.entity.User;
 import com.bretana.auth.repository.UserRepository;
 import com.bretana.auth.security.TokenUtils;
@@ -111,7 +112,7 @@ public class GameController {
         Game g = repository.findOne((long) payload.get("game_id"));
         
         if (g.getPlayer2() == null) {
-            return new ResponseEntity<>(buildMessage("message", "You cannot begin this game until another player joins."), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(Utils.buildMessage("message", "You cannot begin this game until another player joins."), HttpStatus.BAD_REQUEST);
         }
 
         if (g.getBoard_height() * g.getBoard_width() == g.getTurns().size()) {
@@ -120,7 +121,7 @@ public class GameController {
         }
 
         if (g.isFinished()) {
-            return new ResponseEntity<>(buildMessage("message", "This game is already finished, you cannot keep playing on."), HttpStatus.NOT_MODIFIED);
+            return new ResponseEntity<>(Utils.buildMessage("message", "This game is already finished, you cannot keep playing on."), HttpStatus.NOT_MODIFIED);
         }
 
         Turn t = new Turn();
@@ -154,12 +155,7 @@ public class GameController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    
-    private HashMap<String, Object> buildMessage(String title, Object value) {
-        HashMap<String, Object> msg = new HashMap<>();
-        msg.put(title, value);
-        return msg;
-    } 
+     
     
     @RequestMapping(value = "/{id}", method = RequestMethod.POST)
     public ResponseEntity<?> joinGame(HttpServletRequest request, @PathVariable long id) {
@@ -169,17 +165,17 @@ public class GameController {
         User player = userRepository.findByUsername(username);
         
         if (player == game.getPlayer1()) {
-            return new ResponseEntity<>(buildMessage("message", "You cannot play against yourself"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(Utils.buildMessage("message", "You cannot play against yourself"), HttpStatus.BAD_REQUEST);
         }
         
         if (game.getPlayer2() != null) {
-            return new ResponseEntity<>(buildMessage("message", "This game is full, find yourself another one"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(Utils.buildMessage("message", "This game is full, find yourself another one"), HttpStatus.BAD_REQUEST);
         }
         
         game.setPlayer2(player);
         repository.save(game);
         
-        return new ResponseEntity<>(buildMessage("message", "Joined to the game successfully, enjoy it!"), HttpStatus.OK);
+        return new ResponseEntity<>(Utils.buildMessage("message", "Joined to the game successfully, enjoy it!"), HttpStatus.OK);
     }
     
     @RequestMapping(value = "/joined")
