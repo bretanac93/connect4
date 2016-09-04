@@ -1,5 +1,4 @@
 /Users/user/Documents/connect/src/main/java/com/bretana/auth/security/EntryPointUnauthorizedHandler.java
-/Users/user/Documents/connect/src/main/java/com/bretana/auth/domain/base/DomainBase.java
 /Users/user/Documents/connect/src/main/java/com/bretana/auth/service/impl/SecurityServiceImpl.java
 /Users/user/Documents/connect/src/main/java/com/bretana/lib/StatusMessage.java
 /Users/user/Documents/connect/src/main/java/com/bretana/auth/service/SecurityService.java
@@ -8,18 +7,16 @@
 /Users/user/Documents/connect/src/main/java/com/bretana/auth/config/CorsFilter.java
 /Users/user/Documents/connect/src/main/java/com/bretana/auth/model/security/SecurityUser.java
 /Users/user/Documents/connect/src/main/java/com/bretana/auth/repository/UserRepository.java
-/Users/user/Documents/connect/src/main/java/com/bretana/models/PlayerRepository.java
 /Users/user/Documents/connect/src/main/java/com/bretana/Constants.java
 /Users/user/Documents/connect/src/main/java/com/bretana/auth/security/AuthenticationTokenFilter.java
 /Users/user/Documents/connect/src/main/java/com/bretana/lib/Board.java
 /Users/user/Documents/connect/src/main/java/com/bretana/auth/domain/entity/User.java
+/Users/user/Documents/connect/src/main/java/com/bretana/Utils.java
 /Users/user/Documents/connect/src/main/java/com/bretana/models/Game.java
 /Users/user/Documents/connect/src/main/java/com/bretana/auth/model/json/response/AuthenticationResponse.java
 /Users/user/Documents/connect/src/main/java/com/bretana/models/GameRepository.java
 /Users/user/Documents/connect/src/main/java/com/bretana/auth/config/WebSecurityConfiguration.java
-/Users/user/Documents/connect/src/main/java/com/bretana/models/Player.java
 /Users/user/Documents/connect/src/main/java/com/bretana/auth/rest/AuthenticationController.java
-/Users/user/Documents/connect/src/main/java/com/bretana/controllers/PlayerController.java
 /Users/user/Documents/connect/src/main/java/com/bretana/controllers/GameController.java
 /Users/user/Documents/connect/src/main/java/com/bretana/auth/service/UserService.java
 /Users/user/Documents/connect/src/main/java/com/bretana/ConnectApplication.java
@@ -27,4 +24,5 @@
 /Users/user/Documents/connect/src/main/java/com/bretana/auth/security/TokenUtils.java
 /Users/user/Documents/connect/src/main/java/com/bretana/models/Turn.java
 /Users/user/Documents/connect/src/main/java/com/bretana/auth/service/impl/UserServiceImpl.java
+/Users/user/Documents/connect/src/main/java/com/bretana/controllers/UserController.java
 /Users/user/Documents/connect/src/main/java/com/bretana/models/TurnRepository.java
