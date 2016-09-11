@@ -55,6 +55,7 @@ public class Game implements Serializable {
     }
     
     @ManyToOne
+    @JsonIgnore
     public User getPlayer1() {
         return this.player1;
     }
@@ -64,6 +65,7 @@ public class Game implements Serializable {
     }
     
     @ManyToOne
+    @JsonIgnore
     public User getPlayer2() {
         return this.player2;
     }
@@ -112,11 +114,11 @@ public class Game implements Serializable {
 
     public void hasFinished() {
         this.finished = true;
-        this.turns.clear();
+        // this.turns.clear();
     }
     
     public void setFinished(boolean finished) {
         this.finished = finished;
-        if (finished) this.turns.clear();
+        // if (finished) this.turns.clear();
     }
 }

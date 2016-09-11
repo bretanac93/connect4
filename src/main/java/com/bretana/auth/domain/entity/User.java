@@ -7,6 +7,7 @@ package com.bretana.auth.domain.entity;
 
 import com.bretana.models.Turn;
 import java.io.Serializable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
@@ -180,6 +181,7 @@ public class User implements Serializable {
      * @return
      */
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     public List<Turn> getMoves() {
         return moves;
     }

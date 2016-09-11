@@ -134,6 +134,8 @@ public class GameController {
 
             if (result != null) {
                 result.setWinner(who_play.getUsername());
+                g.setFinished(true);
+                repository.save(g);
                 return new ResponseEntity<>(result, HttpStatus.OK);
             } else {
                 g.setBoard(this.encodeMatrix(this.board.getBoard()));
@@ -150,7 +152,7 @@ public class GameController {
             }
 
         } catch (Exception e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(Utils.buildMessage("message", e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
      
